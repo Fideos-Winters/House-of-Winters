@@ -76,7 +76,7 @@ public function update(Request $req, $ID)
     }
 
     $empld->save();
-
+//Hola lemus es negro
     return redirect('/equipo/listado');
 }
 
