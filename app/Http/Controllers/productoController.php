@@ -25,24 +25,51 @@ class productoController extends Controller
 
     }
 
-    public function store(Request $req)
-    {
+public function store(Request $req)
+{
+    // return $req->all();
 
-        // return $req -> all();
+    $prod = new Producto;
 
-        $prod = new Producto;
+    $prod->Nombre = $req->Nombre;
+    $prod->Precio = $req->Precio;
+    $prod->Stock = $req->Stock;
+    $prod->Categoria_id = $req->Categoria_id;
+    $prod->Imagen = '/imagenes/productos/producto_default.jpg';
+    $prod->Imagen_1 = null;
+    $prod->Imagen_2 = null;
 
-        $prod->Nombre = $req->Nombre;
-        $prod->Precio = $req->Precio;
-        $prod->Stock = $req->Stock;
-        $prod->Categoria_id = $req->Categoria_id;
-        $prod->Imagen = $req->Imagen;
+    $prod->save();
 
+    // Imagen principal
+    if ($req->hasFile('Imagen')) {
+        $imagen = $req->file('Imagen');
+        $nuevo_nombre = 'Producto_'.$prod->ID.'_principal.jpg';
+        $ruta = $imagen->storeAs('Imagenes/Productos', $nuevo_nombre, 'public');
+        $prod->Imagen = '/storage/'.$ruta;
         $prod->save();
-
-        return redirect('/Productos/Productos');
-
     }
+
+    // Imagen secundaria 1
+    if ($req->hasFile('Imagen_1')) {
+        $imagen1 = $req->file('Imagen_1');
+        $nuevo_nombre1 = 'Producto_'.$prod->ID.'_1.jpg';
+        $ruta1 = $imagen1->storeAs('Imagenes/Productos', $nuevo_nombre1, 'public');
+        $prod->Imagen_1 = '/storage/'.$ruta1;
+        $prod->save();
+    }
+
+    // Imagen secundaria 2
+    if ($req->hasFile('Imagen_2')) {
+        $imagen2 = $req->file('Imagen_2');
+        $nuevo_nombre2 = 'Producto_'.$prod->ID.'_2.jpg';
+        $ruta2 = $imagen2->storeAs('Imagenes/Productos', $nuevo_nombre2, 'public');
+        $prod->Imagen_2 = '/storage/'.$ruta2;
+        $prod->save();
+    }
+
+    return redirect('/Productos/Productos');
+}
 
 
 
@@ -54,27 +81,42 @@ class productoController extends Controller
     return view('/Productos/formulario-editar') -> with('producto', $prod);
 
     }
+public function update(Request $req, $ID)
+{
+    $prod = Producto::find($ID);
 
-    public function update(Request $req, $ID)
-    {
+    $prod->Nombre = $req->Nombre;
+    $prod->Precio = $req->Precio;
+    $prod->Stock = $req->Stock;
+    $prod->Categoria_id = $req->Categoria_id;
 
-        // return $req -> all();
+    // Imagen principal
+    if ($req->hasFile('Imagen')) {
+        $imagen = $req->file('Imagen');
+        $nuevo_nombre = 'Producto_'.$prod->ID.'_principal.jpg';
+        $ruta = $imagen->storeAs('Imagenes/Productos', $nuevo_nombre, 'public');
+        $prod->Imagen = '/storage/'.$ruta;
+    }
 
-        $prod = Producto::find($ID);
+    // Imagen secundaria 1
+    if ($req->hasFile('Imagen_1')) {
+        $imagen1 = $req->file('Imagen_1');
+        $nuevo_nombre1 = 'Producto_'.$prod->ID.'_1.jpg';
+        $ruta1 = $imagen1->storeAs('Imagenes/Productos', $nuevo_nombre1, 'public');
+        $prod->Imagen_1 = '/storage/'.$ruta1;
+    }
 
+    // Imagen secundaria 2
+    if ($req->hasFile('Imagen_2')) {
+        $imagen2 = $req->file('Imagen_2');
+        $nuevo_nombre2 = 'Producto_'.$prod->ID.'_2.jpg';
+        $ruta2 = $imagen2->storeAs('Imagenes/Productos', $nuevo_nombre2, 'public');
+        $prod->Imagen_2 = '/storage/'.$ruta2;
+    }
 
-        $prod->Nombre = $req->Nombre;
-        $prod->Precio = $req->Precio;
-        $prod->Stock = $req->Stock;
-        $prod->Categoria_id = $req->Categoria_id;
-        $prod->Imagen = $req->Imagen;
-        $prod -> Estado = $req -> Estado;
+    $prod->save();
 
-        $prod->save();
-
-        return redirect('/Productos/Productos');
-
-    
+    return redirect('/Productos/Productos');
 }
 
 public function destroy($ID)

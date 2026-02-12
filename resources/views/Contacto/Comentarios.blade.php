@@ -48,12 +48,17 @@
                 @foreach ($Comentarios as $coment)
                     <div class="mt-6 flow-root sm:mt-8">
                         <div class="divide-y divide-gray-200 dark:divide-gray-700">
-                            <div class="relative grid grid-cols-2 gap-4 py-6 sm:grid-cols-4 lg:grid-cols-5">
+                            <div class="relative grid grid-cols-2 gap-4 py-6 sm:grid-cols-4 lg:grid-cols-6">
+
+                                <!-- ID -->
                                 <div class="col-span-2 content-center sm:col-span-4 lg:col-span-1">
                                     <a href="#"
-                                        class="text-base font-semibold text-gray-900 hover:underline dark:text-white">#{{ $coment->ID }}</a>
+                                        class="text-base font-semibold text-gray-900 hover:underline dark:text-white">
+                                        #{{ $coment->ID }}
+                                    </a>
                                 </div>
 
+                                <!-- Fecha -->
                                 <div class="content-center">
                                     <div class="flex items-center gap-2">
                                         <svg class="h-4 w-4 text-gray-400" aria-hidden="true"
@@ -63,19 +68,23 @@
                                                 stroke-width="2"
                                                 d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
                                         </svg>
-                                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $coment->Fecha }}
+                                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                                            {{ $coment->Fecha }}
                                         </p>
                                     </div>
                                 </div>
 
+                                <!-- Razon/Titulo -->
                                 <div class="content-center">
                                     <div class="flex items-center justify-end gap-2 sm:justify-start">
-                                        <p class="text-sm text-gray-500 dark:text-gray-400"><span
-                                                class="font-medium text-gray-900 dark:text-white">Razon</span>:
-                                            {{ $coment->Titulo }}</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                                            <span class="font-medium text-gray-900 dark:text-white">Razon</span>:
+                                            {{ $coment->Titulo }}
+                                        </p>
                                     </div>
                                 </div>
 
+                                <!-- Estado -->
                                 <div class="absolute right-0 top-7 content-center sm:relative sm:right-auto sm:top-auto">
                                     <span
                                         class="inline-flex items-center rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
@@ -88,6 +97,18 @@
                                     </span>
                                 </div>
 
+                                <!-- Imagen -->
+                                <div class="content-center">
+                                    @if ($coment->Imagen)
+                                        <img src="{{($coment->Imagen) }}"
+                                            alt="Imagen comentario {{ $coment->ID }}"
+                                            class="w-20 h-20 object-cover rounded-lg border">
+                                    @else
+                                        <span class="text-xs text-gray-400">Sin imagen</span>
+                                    @endif
+                                </div>
+
+                                <!-- Botones -->
                                 <div class="col-span-2 content-center sm:col-span-1 sm:justify-self-end">
                                     <button type="button"
                                         class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
@@ -96,19 +117,20 @@
                                     </button>
                                 </div>
                                 <div>
-                                    <form action="/Contacto/{{ $coment -> ID }}/eliminar" method="POST" style="display:inline;">
+                                    <form action="/Contacto/{{ $coment->ID }}/eliminar" method="POST"
+                                        style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
                                             class="rounded-lg px-3 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700">
                                             Eliminar
                                         </button>
-
                                     </form>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                 @endforeach
-
 
 
 
@@ -141,8 +163,8 @@
                     <div class="absolute right-0 top-7 content-center sm:relative sm:right-auto sm:top-auto">
                         <span
                             class="  inline-flex items-center rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
-                            <svg class="me-1 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" fill="none" viewBox="0 0 24 24">
+                            <svg class="me-1 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5" />
                             </svg>

@@ -40,6 +40,15 @@ public function index()
     $comenta -> Correo = $req -> Correo;
     $comenta -> Titulo = $req -> Titulo;
     $comenta -> Sugerencia = $req -> Sugerencia;
+    $comenta->  Imagen = '/imagenes/comentario/Empleado_default.jpg';
+
+        if ($req->hasFile('Imagen')) {
+            $imagen = $req->file('Imagen');
+            $nuevo_nombre = 'Empleado_'.$comenta->ID.'.jpg';
+            $ruta = $imagen->storeAs('Imagenes/Comentarios', $nuevo_nombre, 'public');
+            $comenta->Imagen = '/storage/'.$ruta;
+            $comenta->save();
+        }
 
 
     $comenta -> save();
@@ -72,7 +81,14 @@ public function index()
     $comenta -> Correo = $req -> Correo;
     $comenta -> Titulo = $req -> Titulo;
     $comenta -> Sugerencia = $req -> Sugerencia;
+    $comenta->  Imagen = '/imagenes/comentario/Empleado_default.jpg';
 
+        if ($req->hasFile('Imagen')) {
+            $imagen = $req->file('Imagen');
+            $nuevo_nombre = 'Empleado_'.$comenta->ID.'.jpg';
+            $ruta = $imagen->storeAs('Imagenes/Comentarios', $nuevo_nombre, 'public');
+            $comenta->Imagen = '/storage/'.$ruta;
+        }
 
     $comenta -> save();
 

@@ -4,7 +4,7 @@
 <section class="bg-white dark:bg-gray-900">
   <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
     <div class="flex justify-end">
-      <a href="/Productos"  
+      <a href="/Productos/Productos"  
          class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
          Regresar
       </a>
@@ -30,7 +30,25 @@
           <input type="file" name="Imagen" id="Imagen" accept="image/*"
                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
           @if($producto->Imagen)
-            <img src="{{ asset('storage/'.$producto->Imagen) }}" alt="Imagen actual" class="mt-2 w-20 h-20 rounded">
+            <img src="{{ asset($producto->Imagen) }}" alt="Imagen actual" class="mt-2 w-20 h-20 rounded">
+          @endif
+        </div>
+                <!-- Imagen 1 -->
+        <div class="w-full">
+          <label for="Imagen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imagen 1 </label>
+          <input type="file" name="Imagen_1" id="Imagen" accept="image/*"
+                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+          @if($producto->Imagen_1)
+            <img src="{{ asset($producto->Imagen_1) }}" alt="Imagen actual" class="mt-2 w-20 h-20 rounded">
+          @endif
+        </div>
+                <!-- Imagen 2-->
+        <div class="w-full">
+          <label for="Imagen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imagen 2</label>
+          <input type="file" name="Imagen_2" id="Imagen" accept="image/*"
+                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+          @if($producto->Imagen_2)
+            <img src="{{ asset($producto->Imagen_2) }}" alt="Imagen actual" class="mt-2 w-20 h-20 rounded">
           @endif
         </div>
 
