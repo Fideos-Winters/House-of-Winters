@@ -47,6 +47,19 @@ Route::view('/Novedades','/novedades/novedades');
 //route::view('/acontacto', 'contacto/contacto');
 //route::view('/aEquipo', 'equipo/aEquipo');
 
+// Login manual con empleados
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Login con Google
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+
+
+Route::middleware(['auth:admin'])->group(function () {
+
 
 Route::get('/equipo/listado', [empleadosController:: class, 'index']);
 
@@ -87,14 +100,10 @@ Route::delete('/Producto/{ID}', [ProductoController::class, 'destroy']);
 
 //controlador inicio 
 
-Route::get('/Inicio', [InicioController::class, 'index']);
 
-// Login manual con empleados
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.post');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/Inicio', [InicioController::class, 'index']);
 
-// Login con Google
-Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
-Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+
+});

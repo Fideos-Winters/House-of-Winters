@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\empleados;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 
 class empleadosController extends Controller
 {
@@ -37,7 +39,7 @@ class empleadosController extends Controller
         $empld->Nombres = $req->Nombres;
         $empld->Apellidos = $req->Apellidos;
         $empld->Correo = $req->Correo;
-        $empld->Contrasena = $req->Contrasena;
+        $empld->Contrasena = Hash::make($req->Contrasena);
         $empld->Rol = $req->Rol;
         $empld->Imagen = '/imagenes/empleados/Empleado_default.jpg';
 
@@ -71,7 +73,7 @@ class empleadosController extends Controller
         $empld->Nombres = $req->Nombres;
         $empld->Apellidos = $req->Apellidos;
         $empld->Correo = $req->Correo;
-        $empld->Contrasena = $req->Contrasena;
+        $empld->Contrasena = Hash::make($req->Contrasena);
         $empld->Rol = $req->Rol;
         $empld->Estado = $req->Estado;
 

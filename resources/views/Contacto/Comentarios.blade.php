@@ -117,6 +117,8 @@
                                     </button>
                                 </div>
                                 <div>
+                                 @if (Auth::guard('admin')->user()->Rol == 'Admin')
+
                                     <form action="/Contacto/{{ $coment->ID }}/eliminar" method="POST"
                                         style="display:inline;">
                                         @csrf
@@ -126,6 +128,7 @@
                                             Eliminar
                                         </button>
                                     </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>

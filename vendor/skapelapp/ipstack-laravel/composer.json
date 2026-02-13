@@ -1,0 +1,67 @@
+{
+    "name": "skapelapp/ipstack-laravel",
+    "description": "Get information from a visitor's IP address using IPStack and use it in your Laravel project.",
+    "keywords" : [
+        "geolocation",
+        "laravel",
+        "goip",
+        "ipstack"
+    ],
+    "authors" : [
+        {
+            "name" : "Skapel",
+            "email" : "hello@skapel.com",
+            "homepage": "https://skapel.com/packages/ipstack-laravel",
+            "role" : "Developer"
+        }
+    ],
+    "homepage": "https://skapel.com/packages/ipstack-laravel",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Skapelapp\\IPStackLaravel\\": "src/"
+        }
+    },
+    "autoload-dev" : {
+        "psr-4" : {
+            "Skapelapp\\IPStackLaravel\\Tests\\" : "tests"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.0",
+        "laravel/framework": "^10.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Skapelapp\\IPStackLaravel\\IPStackLaravelServiceProvider"
+            ],
+            "aliases": {
+                "Location": "Skapelapp\\IPStackLaravel\\Facades\\IPStackFacade"
+            }
+        }
+    },
+
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/skapelapp/ipstack-laravel"
+        }
+    ],
+    "support" : {
+        "issues" : "https://github.com/skapelapp/ipstack-laravel/issues",
+        "forum" : "https://skapel.com/community",
+        "source" : "https://github.com/skapelapp/ipstack-laravel",
+        "docs" : "https://skapel.com/docs/ipstack-laravel/introduction"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@php artisan vendor:publish --tag=ipstack-laravel-config --force"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=ipstack-laravel-config --force"
+        ]
+    }
+}

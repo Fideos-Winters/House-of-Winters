@@ -142,35 +142,39 @@
                                     Up to 35% off </span>
 
                                 <div class="flex items-center justify-end gap-1">
+                                    @if (Auth::guard('admin')->user()->Rol == 'Admin' || Auth::guard('admin')->user()->Rol == 'Almacenista')
 
-                                    <a href="/Prodcutos/{{ $product->ID }}/formulario-editar"
-                                        class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 
+                                        <a href="/Prodcutos/{{ $product->ID }}/formulario-editar"
+                                            class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 
                                           dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        Editar
-                                    </a>
+                                            Editar
+                                        </a>
+                                    @endif
 
+                                        <div id="tooltip-quick-look" role="tooltip"
+                                            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
+                                            data-popper-placement="top">
+                                            Quick look
+                                            <div class="tooltip-arrow" data-popper-arrow=""></div>
+                                        </div>
+                                        @if (Auth::guard('admin')->user()->Rol == 'Admin')
 
-                                    <div id="tooltip-quick-look" role="tooltip"
-                                        class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
-                                        data-popper-placement="top">
-                                        Quick look
-                                        <div class="tooltip-arrow" data-popper-arrow=""></div>
-                                    </div>
-                                    <form action="/Producto/{{ $product->ID }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="rounded-lg px-3 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700">
-                                            Eliminar
-                                        </button>
-                                    </form>
-
-                                    <div id="tooltip-add-to-favorites" role="tooltip"
-                                        class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
-                                        data-popper-placement="top">
-                                        Add to favorites
-                                        <div class="tooltip-arrow" data-popper-arrow=""></div>
-                                    </div>
+                                            <form action="/Producto/{{ $product->ID }}" method="POST"
+                                                style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="rounded-lg px-3 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+                                        @endif
+                                        <div id="tooltip-add-to-favorites" role="tooltip"
+                                            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
+                                            data-popper-placement="top">
+                                            Add to favorites
+                                            <div class="tooltip-arrow" data-popper-arrow=""></div>
+                                        </div>
                                 </div>
                             </div>
                             <a href="#"
@@ -245,6 +249,6 @@
                     </div>
                 </div>
             </div>
-        </form>
+            </form>
     </section>
 @endsection

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\empleados;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
@@ -15,27 +17,33 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $request->validate([
-            'Correo' => 'required|email',
-            'Contrasena' => 'required',
-        ]);
+{
+    $request->validate([
+        'Correo' => 'required|email',
+        'Contrasena' => 'required',
+    ]);
 
-        $empleado = empleados::where('Correo', $request->Correo)
-            ->where('Contrasena', $request->Contrasena) 
-            ->first();
+    $credenciales = [
+        'Correo'   => $request->Correo,
+        'password' => $request->Contrasena, 
+        'Estado'   => 1
+    ];
 
-        if ($empleado) {
-            Session::put('empleado', $empleado);
-            return redirect('/Inicio')->with('success', 'Bienvenido '.$empleado->Nombres);
-        }
-
-        return back()->withErrors(['login' => 'Credenciales incorrectas']);
+    if (Auth::guard('admin')->attempt($credenciales)) {
+        $request->session()->regenerate();
+        return redirect('/Inicio');
     }
 
-    public function logout()
-    {
-        Session::forget('empleado');
-        return redirect('/login');
-    }
+    return back()->withErrors(['login' => 'Credenciales incorrectas o cuenta inactiva']);
+}
+
+
+public function logout(Request $request)
+{
+    Auth::guard('admin')->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/login');
+}
 }

@@ -14,7 +14,7 @@
                         Agrega un Usuario
                     </h1>
 
-                    <form class="space-y-4 md:space-y-6" action="/Equipo/store" method="POST" enctype="multipart/form-data>
+                    <form class="space-y-4 md:space-y-6" action="/Equipo/store" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div>

@@ -20,14 +20,16 @@
         <span class="self-center text-xl text-heading font-semibold whitespace-nowrap">House of Winters</span>
       </a>
 <div class="flex items-center space-x-6 rtl:space-x-reverse">
-@if(Session::has('empleado'))
+@if(Auth::guard('admin')->check())
     <div class="flex items-center space-x-3">
-        <img src="{{ Session::get('empleado')->Imagen }}" 
-     alt="Foto de perfil" 
-     class="w-8 h-8 rounded-full object-cover">
+        <img src="{{ Auth::guard('admin')->user()->Imagen }}" 
+             alt="Foto de perfil" 
+             class="w-8 h-8 rounded-full object-cover">
+
         <span class="text-sm text-heading font-medium">
-            {{ Session::get('empleado')->Nombres }}
+            {{ Auth::guard('admin')->user()->Nombres }}
         </span>
+
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit" class="text-sm font-medium text-fg-brand hover:underline">
@@ -36,6 +38,7 @@
         </form>
     </div>
 @endif
+
 </div>
     </div>
   </nav>
@@ -63,6 +66,8 @@
           </li>
 
           <!-- Personal -->
+          @if(Auth::guard('admin')->user()->Rol == 'Admin')
+  
           <li class="relative group">
             <a href="/equipo/listado" class="text-heading hover:underline">Personal</a>
             <ul class="absolute left-0 mt-2 w-40 bg-white shadow-lg rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
@@ -70,15 +75,21 @@
               <li><a href="/Equipo/{id}/update" class="block px-4 py-2 hover:bg-gray-100">Formulario de Editar</a></li>
             </ul>
           </li>
+          @endif
+          
           
           <!-- Contacto -->
+          @if(
+          Auth::guard('admin')->user()->Rol == 'Admin' ||
+          Auth::guard('admin')->user()->Rol == 'Almacenista'
+          )
           <li class="relative group">
             <a href="/Contacto/Comentarios" class="text-heading hover:underline">Contacto</a>
             <ul class="absolute left-0 mt-2 w-40 bg-white shadow-lg rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
               <li><a href="/Conctacto/contacto" class="block px-4 py-2 hover:bg-gray-100">Formulario de contacto</a></li>
             </ul>
           </li>
-
+          @endif
           <!-- Productos -->
           <li class="relative group">
             <a href="/Productos/Productos" class="text-heading hover:underline">Productos</a>
@@ -108,6 +119,7 @@
         @yield('formulario')
     </main>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 
 </body>
 </html>
